@@ -94,7 +94,7 @@ Note that the automation won't work without proper setup of the console.
 TodoAutomation.startAutomation();
 ```
 
---- gif ---
+![](https://github.com/KrzysiuGetReckt/TAU/blob/BrowserAutomation/media/todoautomation_startautomation.gif)
 
 The main feature is randomly picking between multiple functions that can interact with the Todo list:
 
@@ -114,5 +114,4 @@ TodoAutomation.changeRandomTodo(); // Update the title of a randomly picked todo
 ```javascript
 TodoAutomation.stopAutomation();
 ```
-
---- gif ---
+![](https://github.com/KrzysiuGetReckt/TAU/blob/BrowserAutomation/media/todoautomation_stopautomation.gif)
