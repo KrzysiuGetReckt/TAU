@@ -4,7 +4,6 @@ const env = require(`../../environment/${ENVIRONMENT}Environment`);
 const { expect } = require('@wdio/globals');
 const { LoginPage, MainPage } = require('../pageobjects/');
 const securePage = require('../pageobjects/securePage');
-const Logger = require('../../framework/logger');
 
 describe('The Login Input Page', () => {
   beforeEach(async function () {
@@ -19,8 +18,6 @@ describe('The Login Input Page', () => {
     await LoginPage.typePassword('SuperSecretPassword!');
     await LoginPage.clickLoginBtn();
     await securePage.waitForFormIsOpened();
-    let text = await securePage.securePageUniqeIsOpen();
-    Logger.info(typeof text);
     await expect(await securePage.securePageUniqeIsOpen()).toHaveTextContaining(
       'Secure Area'
     );
