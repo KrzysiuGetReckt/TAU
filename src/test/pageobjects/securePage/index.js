@@ -1,7 +1,7 @@
 const BaseForm = require('../../../framework/baseForm');
 const Element = require('../../../framework/element');
 
-class securePage extends BaseForm {
+class SecurePage extends BaseForm {
   constructor() {
     super(`//div/div/h2`, 'Secure page after login of  the-internet.herokuapp');
   }
@@ -20,12 +20,12 @@ class securePage extends BaseForm {
    *    text displayed on the site to check against
    */
   async securePageUniqeIsOpen() {
-    return this.securePageUniqe;
+    return this.securePageUniqe.getText();
   }
 
   async flashAlertText() {
-    return this.flashInfo;
+    return this.flashInfo.getText();
   }
 }
 
-module.exports = new securePage();
+module.exports = new SecurePage();

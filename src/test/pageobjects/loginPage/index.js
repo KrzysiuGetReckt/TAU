@@ -1,7 +1,7 @@
 const BaseForm = require('../../../framework/baseForm');
 const Element = require('../../../framework/element');
 
-class mainPage extends BaseForm {
+class LoginPage extends BaseForm {
   constructor() {
     super(`#login`, 'Login Page of the-internet.herokuapp');
   }
@@ -40,4 +40,4 @@ class mainPage extends BaseForm {
   }
 }
 
-module.exports = new mainPage();
+module.exports = new LoginPage();

@@ -1,18 +1,26 @@
 const BaseForm = require('../../../framework/baseForm');
 const Element = require('../../../framework/element');
 
-class mainPage extends BaseForm {
+class MainPage extends BaseForm {
   constructor() {
     super(`.heading`, 'Home page of  the-internet.herokuapp');
   }
 
-  get formAuthentication() {
-    return new Element('//li[21]/a', 'Form Authentication Link');
+  get linksList() {
+    return new Element('ul li', 'Links list of Home Page');
   }
 
-  async clickFormAuthentication() {
-    return this.formAuthentication.click();
+  linkList = (index) => {
+    return new Element(`//li[${index}]/a`, `Choosing the ${index} list item.`);
+  };
+
+  async clickSpecificLink(index) {
+    this.linkList(index).click();
+  }
+
+  async writeOutLinkListText() {
+    return this.linksList.getTextFromElements();
   }
 }
 
-module.exports = new mainPage();
+module.exports = new MainPage();

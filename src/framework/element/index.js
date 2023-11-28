@@ -29,12 +29,28 @@ module.exports = class Element {
     await (await $(this.locator)).click({ x, y });
   }
 
+  async isElementSelected() {
+    Logger.info(
+      `Is Element Selected "${this.name}" of locator "${this.locator}"`
+    );
+    await this.state().assertIsExist();
+    return (await $(this.locator)).isSelected();
+  }
+
   async getText() {
     Logger.info(`Get text from element "${this.name}"`);
     await this.state().assertIsExist();
     const text = await (await $(this.locator)).getText();
     Logger.info(`Received text "${text}"`);
     return text;
+  }
+
+  async getValue() {
+    Logger.info(`Get value from element "${this.name}"`);
+    await this.state().assertIsExist();
+    const value = await (await $(this.locator)).getValue();
+    Logger.info(`Recived value "${value}"`);
+    return value;
   }
 
   async getTextFromElements() {
