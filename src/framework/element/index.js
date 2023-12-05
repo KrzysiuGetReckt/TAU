@@ -53,6 +53,11 @@ module.exports = class Element {
     return value;
   }
 
+  async selectByAttribute(attribute, value){
+    Logger.info(`Selecting element ${this.name} by attribute ${attribute},  ${value}`);
+    return await $(this.locator).selectByAttribute(attribute, value);
+  }
+
   async getTextFromElements() {
     Logger.info(`Get text from elements "${this.name}"`);
     await this.state().assertIsExist();
@@ -135,12 +140,5 @@ module.exports = class Element {
     await this.state().assertIsExist();
     const elem = await await $(this.locator);
     return elem.scrollIntoView();
-  }
-
-  async dragAndDrop(target, duration = 0) {
-    Logger.info(
-      `Draging element "${this.name}" to ${target.name} for duration of ${duration} ms`
-    );
-    await $(this.locator).dragAndDrop(target, { duration });
   }
 };

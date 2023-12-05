@@ -75,9 +75,25 @@ module.exports = {
       testText: `Testing`,
     },
   },
-  dragAndDrop: {
-    uniqe: 'Drag and Drop',
-    collumnAText: 'A',
-    collumnBText: 'B',
+  dropdown: {
+    uniqe: 'Dropdown List',
   },
+  'javascript alerts': {
+    uniqe: 'JavaScript Alerts',
+    firstAlert: {
+      index: 1,
+      alertText: 'I am a JS Alert',
+    },
+    dismissed: 'You successfully clicked an alert',
+    accept: 'You clicked: Ok',
+    decline: 'You clicked: Cancel',
+    secondAlert: {
+      index: 2,
+    },
+    thirdAlert: {
+      index: 3,
+      sendText: 'Secret',
+      result: 'You entered: ',
+    }
+  }
 };

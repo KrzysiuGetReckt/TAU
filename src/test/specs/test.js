@@ -13,7 +13,8 @@ const {
   NewWindow,
   WyswingEditor,
   WyswingEditorIframe,
-  DragAndDrop,
+  Dropdown,
+  JavascriptAlerts,
 } = require('../pageobjects/');
 const TestData = require('../testData/testData');
 const GeneratorUtils = require('../../framework/Utils/generatorUtils');
@@ -272,33 +273,78 @@ describe.skip('WYSIWYG Editor Functionality', async () => {
 
 /**
  * Drag and drop functional testing.
- *
- * Get on the main page         |   Assert that the main page is open
- * Head to the Drag and drop Web Page | Assert that the Drag and drop page is open
- * Check the initial position of the elements | Asert that element A is on the left, B is on the right
- * Change the position of Elements A and B | Assert that the element position changed
+ * 
+ * Testing the functionality of drag and drop depends on the implementation of the feature in the browser
+ * Resulting in a failing test on the web site of https://the-internet.herokuapp.com
+ * Additionally the implementation in webdriverIO is heavily bugged
+ * https://github.com/webdriverio/webdriverio/issues/8022
+ * The "newsest" reported issue that has a lot threads opened.
+ * 
+ * Because of that reason the drag and drop functionality will be ommited for the time being.
  */
 
-describe('Drag and Drop Functionality', async () => {
-  beforeEach(async function () {
+
+/**
+ * Dropdown selection testing.
+ * 
+ * Get on the main page           |   Assert that the main page is open
+ * Head to the Dropdown Web Page  | Assert that the dropdown page is open
+ * Select option 1 in the dropdown | Asert that the dropdown 1 is selected
+ * Select option 2 in the dropdown | Asert that the dropdown 2 is selected
+ * 
+ */
+
+describe.skip('Dropdowns functionality testing', async () => {
+  beforeEach(async function (){
     await browser.url(env.startUrl);
-  });
-  it('Drag and drop functional Testing', async () => {
+  })
+  it('Dropdown Testing - Selecting option one and then two', async () => {
     await MainPage.waitForFormIsOpened();
-    await MainPage.clickSpecificLink(
-      TestData.mainPage.indexLink['Drag and Drop']
-    );
-    await DragAndDrop.waitForFormIsOpened();
-    expect(await DragAndDrop.getPageTitleText()).to.equal(
-      TestData.dragAndDrop.uniqe
-    );
-    expect(await DragAndDrop.getColumnAText()).to.equal(
-      TestData.dragAndDrop.collumnAText
-    );
-    expect(await DragAndDrop.getColumnBText()).to.equal(
-      TestData.dragAndDrop.collumnBText
-    );
-    await DragAndDrop.DragAndDropAtoB();
-    browser.pause(2000);
-  });
+    await MainPage.clickSpecificLink(TestData.mainPage.indexLink.Dropdown);
+    await Dropdown.waitForFormIsOpened();
+    expect(await Dropdown.getPageTitleText()).to.equal(TestData.dropdown.uniqe);
+    await Dropdown.selectFromDropdown('value', 1);
+    expect(await Dropdown.IsOptionOneSelected()).to.be.true;
+    await Dropdown.selectFromDropdown('value', 2);
+    expect(await Dropdown.IsOptionTwoSelected()).to.be.true;
+  })
 });
+
+/**
+ * Javascript alerts testing.
+ * 
+ * Get on the main page           |   Assert that the main page is open
+ * Head to the Javascript Alerts Web Page  | Assert that the Javascript Alerts page is open
+ * Select First alert   | Assert that the first alert text is correct
+ * Select the second alert and accept it | Assert that the alert was accepted
+ * Select the second alert and dismiss it | Assert that the alret was dismissed
+ * Select the third alert and send TestData.['Javascript Alerts'].secret | Assert that the send value is equal 
+ * 
+ */
+
+describe('Javascript Alerts functionality testing', async () => {
+  beforeEach(async function (){
+    await browser.url(env.startUrl);
+  })
+  it('Javascript alerts functional test', async () => {
+    await MainPage.waitForFormIsOpened();
+    await MainPage.clickSpecificLink(TestData.mainPage.indexLink['JavaScript Alerts']);
+    await JavascriptAlerts.waitForFormIsOpened();
+    expect(await JavascriptAlerts.getPageTitleText()).to.equal(TestData['javascript alerts'].uniqe);
+    await JavascriptAlerts.clickAlertButton(TestData['javascript alerts'].firstAlert.index);
+    expect(await browser.getAlertText()).to.equal(TestData['javascript alerts'].firstAlert.alertText);
+    await browser.acceptAlert();
+    expect(await JavascriptAlerts.getResultText()).to.equal(TestData['javascript alerts'].dismissed);
+    await JavascriptAlerts.clickAlertButton(TestData['javascript alerts'].secondAlert.index);
+    await browser.acceptAlert();
+    expect(await JavascriptAlerts.getResultText()).to.equal(TestData['javascript alerts'].accept);
+    await JavascriptAlerts.clickAlertButton(TestData['javascript alerts'].secondAlert.index);
+    await browser.dismissAlert();
+    expect(await JavascriptAlerts.getResultText()).to.equal(TestData['javascript alerts'].decline);
+    await JavascriptAlerts.clickAlertButton(TestData['javascript alerts'].thirdAlert.index);
+    let sendToAlert = TestData['javascript alerts'].thirdAlert.sendText;
+    await browser.sendAlertText(sendToAlert);
+    await browser.acceptAlert();
+    expect(await JavascriptAlerts.getResultText()).to.equal(`${TestData['javascript alerts'].thirdAlert.result}${sendToAlert}`);
+  })
+})

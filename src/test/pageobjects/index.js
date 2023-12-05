@@ -8,7 +8,8 @@ const MultipleWindows = require('./multipleWindows');
 const NewWindow = require('./newWindow');
 const WyswingEditor = require('./wyswingEditor/index');
 const WyswingEditorIframe = require('./wyswingEditor/wyswingEditorIframe');
-const DragAndDrop = require('./dragAndDrop');
+const Dropdown = require('./dropdown');
+const JavascriptAlerts = require('./javascriptAlerts');
 
 module.exports = {
   MainPage,
@@ -21,5 +22,6 @@ module.exports = {
   NewWindow,
   WyswingEditor,
   WyswingEditorIframe,
-  DragAndDrop,
+  Dropdown,
+  JavascriptAlerts,
 };
