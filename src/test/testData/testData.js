@@ -1,5 +1,9 @@
+const { ENVIRONMENT } = require('../../environment/envConfig');
+const env = require(`../../environment/${ENVIRONMENT}Environment`);
+
 module.exports = {
   mainPage: {
+    url: env.startUrl,
     indexLink: {
       'A/B Testing': 1,
       'Add/Remove Elements': 2,
@@ -49,5 +53,31 @@ module.exports = {
   },
   toggleEnableDisable: {
     text: 'Something',
+  },
+  hovers: {
+    uniqe: 'Hovers',
+  },
+  keyPress: {
+    uniqe: 'Key Presses',
+  },
+  multipleWindows: {
+    uniqe: `Opening a new window`,
+    url: `${env.startUrl}/windows`,
+  },
+  newWindow: {
+    uniqe: `New Window`,
+    url: `${env.startUrl}/windows/new`,
+  },
+  wyswingEditor: {
+    uniqe: `An iFrame containing the TinyMCE WYSIWYG Editor`,
+    iframe: {
+      id: `#mce_0_ifr`,
+      testText: `Testing`,
+    },
+  },
+  dragAndDrop: {
+    uniqe: 'Drag and Drop',
+    collumnAText: 'A',
+    collumnBText: 'B',
   },
 };

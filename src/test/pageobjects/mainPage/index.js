@@ -15,7 +15,8 @@ class MainPage extends BaseForm {
   };
 
   async clickSpecificLink(index) {
-    this.linkList(index).click();
+    await this.linkList(index).scrollIntoView();
+    return this.linkList(index).click();
   }
 
   async writeOutLinkListText() {

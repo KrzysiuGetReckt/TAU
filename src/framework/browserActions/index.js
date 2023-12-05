@@ -1,4 +1,5 @@
 const Logger = require('../logger');
+const timeouts = require('../../environment/timeouts');
 
 /**
  * Overriding commands from WebdriverIO
@@ -21,14 +22,30 @@ module.exports = async function () {
     await origFunction();
   });
 
+  await browser.overwriteCommand('keys', async (origFunction, keys) => {
+    Logger.info(`Sending keys "${keys}" to active element`);
+    await origFunction(keys);
+  });
+
+  await browser.overwriteCommand(
+    'switchWindow',
+    async (origFunction, matcher) => {
+      Logger.info(`Switching window to "${matcher}"`);
+      await origFunction(matcher);
+    }
+  );
+
   await browser.addCommand('getCurrentUrl', function () {
     Logger.info('Get current url');
     return this.getUrl();
   });
 
-  await browser.addCommand('swithToLastWindow', async function () {
-    Logger.info('Switch to last window');
-    const windows = await this.getWindowHandles();
-    return this.switchToWindow(windows.pop());
-  });
+  await browser.addCommand(
+    'waitToSwitchWindow',
+    async function (matcher, implicitWait) {
+      Logger.info(`Waiting ${implicitWait} ms`);
+      await browser.pause(implicitWait);
+      return this.switchWindow(matcher);
+    }
+  );
 };

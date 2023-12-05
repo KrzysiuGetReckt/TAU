@@ -67,6 +67,16 @@ module.exports = class Element {
     return Promise.all(elements.map(async (el) => el.getAttribute(attribute)));
   }
 
+  async moveTo(xOffset, yOffset) {
+    Logger.info(`Moving the mouse cursor to element "${this.name}"`);
+    return await $(this.locator).moveTo(xOffset, yOffset);
+  }
+
+  async keys(value) {
+    Logger.info(`Sending keypress ${value} to element "${this.name}"`);
+    return await $(this.locator).keys(value);
+  }
+
   async type(value) {
     await this._setText(value, false);
   }
@@ -125,5 +135,12 @@ module.exports = class Element {
     await this.state().assertIsExist();
     const elem = await await $(this.locator);
     return elem.scrollIntoView();
+  }
+
+  async dragAndDrop(target, duration = 0) {
+    Logger.info(
+      `Draging element "${this.name}" to ${target.name} for duration of ${duration} ms`
+    );
+    await $(this.locator).dragAndDrop(target, { duration });
   }
 };
