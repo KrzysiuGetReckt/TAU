@@ -35,7 +35,7 @@ const createMultipleAddRemoveElements = require('../steps/createMultipleAddRemov
  * Incorectly - Correct Username, wrong password | Assert that the Page is the same AND "Your password is invalid!"
  */
 
-describe.skip('Login Input Page functionality', () => {
+describe('Login Input Page functionality', () => {
   beforeEach(async function () {
     await browser.url(env.startUrl);
   });
@@ -110,7 +110,7 @@ describe.skip('Login Input Page functionality', () => {
  * Disable the input | Input is disabled
  */
 
-describe.skip('The Remove/Add checkbox and Enable/Disable Input', () => {
+describe('The Remove/Add checkbox and Enable/Disable Input', () => {
   beforeEach(async function () {
     await browser.url(env.startUrl);
   });
@@ -157,7 +157,7 @@ describe.skip('The Remove/Add checkbox and Enable/Disable Input', () => {
  * Head to the Hover Web Page | Assert that the Hover page is open
  * Select a random user to hover | Figcaption text of that user is displayed
  */
-describe.skip('Hover Page functionality', async () => {
+describe('Hover Page functionality', async () => {
   beforeEach(async function () {
     await browser.url(env.startUrl);
   });
@@ -186,7 +186,7 @@ describe.skip('Hover Page functionality', async () => {
  * Head to the Hover Web Page | Assert that the Hover page is open
  * Select a random user to hover | Figcaption text of that user is displayed
  */
-describe.skip('Key Presses functionality', async () => {
+describe('Key Presses functionality', async () => {
   beforeEach(async function () {
     await browser.url(env.startUrl);
   });
@@ -214,7 +214,7 @@ describe.skip('Key Presses functionality', async () => {
  * Click to open the new window | Assert that the new window is open
  * Close the new window | Assert that the browse switched to Multiple windows page.
  */
-describe.skip('Multiple windows Functionality', async () => {
+describe('Multiple windows Functionality', async () => {
   beforeEach(async function () {
     await browser.url(env.startUrl);
   });
@@ -249,7 +249,7 @@ describe.skip('Multiple windows Functionality', async () => {
  * Switch to inner iframe | Asert that the target is the iframe
  * Change the text in the iframe | Assert that the text equals TestData test text
  */
-describe.skip('WYSIWYG Editor Functionality', async () => {
+describe('WYSIWYG Editor Functionality', async () => {
   beforeEach(async function () {
     await browser.url(env.startUrl);
   });
@@ -296,7 +296,7 @@ describe.skip('WYSIWYG Editor Functionality', async () => {
  * 
  */
 
-describe.skip('Dropdowns functionality testing', async () => {
+describe('Dropdowns functionality testing', async () => {
   beforeEach(async function (){
     await browser.url(env.startUrl);
   })
@@ -324,7 +324,7 @@ describe.skip('Dropdowns functionality testing', async () => {
  * 
  */
 
-describe.skip('Javascript Alerts functionality testing', async () => {
+describe('Javascript Alerts functionality testing', async () => {
   beforeEach(async function (){
     await browser.url(env.startUrl);
   })
@@ -352,10 +352,19 @@ describe.skip('Javascript Alerts functionality testing', async () => {
 });
 
 /**
+ * Add and Remove Elements testiong.
+ * 
+ * Get on the main page           |   Assert that the main page is open
+ * Head to the Add/Remove Elements Web Page  | Assert that the Add/Remove Elements page is open
+ * Add an element | Assert that an element has been created
+ * OR
+ * Create a random amount of elements between 1 and 10 | Assert those has been created
+ * Remove the element/s | Asser that the element/s is/are deleted
+ * 
  * 
  */
 
-describe.skip('Add/Remove Elements functional testing', async () => {
+describe('Add/Remove Elements functional testing', async () => {
   beforeEach(async function (){
     await browser.url(env.startUrl);
   })
