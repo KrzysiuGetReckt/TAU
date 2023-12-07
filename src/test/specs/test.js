@@ -15,9 +15,11 @@ const {
   WyswingEditorIframe,
   Dropdown,
   JavascriptAlerts,
+  AddRemoveElements,
 } = require('../pageobjects/');
 const TestData = require('../testData/testData');
 const GeneratorUtils = require('../../framework/Utils/generatorUtils');
+const createMultipleAddRemoveElements = require('../steps/createMultipleAddRemoveElements');
 
 /**
  * Form Authentication testing.
@@ -322,7 +324,7 @@ describe.skip('Dropdowns functionality testing', async () => {
  * 
  */
 
-describe('Javascript Alerts functionality testing', async () => {
+describe.skip('Javascript Alerts functionality testing', async () => {
   beforeEach(async function (){
     await browser.url(env.startUrl);
   })
@@ -347,4 +349,31 @@ describe('Javascript Alerts functionality testing', async () => {
     await browser.acceptAlert();
     expect(await JavascriptAlerts.getResultText()).to.equal(`${TestData['javascript alerts'].thirdAlert.result}${sendToAlert}`);
   })
+});
+
+/**
+ * 
+ */
+
+describe.skip('Add/Remove Elements functional testing', async () => {
+  beforeEach(async function (){
+    await browser.url(env.startUrl);
+  })
+  it('Add/Remove functional test', async () => {
+    await MainPage.waitForFormIsOpened();
+    await MainPage.clickSpecificLink(TestData.mainPage.indexLink['Add/Remove Elements']);
+    await AddRemoveElements.waitForFormIsOpened();
+    expect(await AddRemoveElements.getPageTitleText()).to.equal(TestData['Add/Remove Elements'].uniqe);
+    await AddRemoveElements.clickAddElementButton();
+    expect(await AddRemoveElements.isRemoveButtonDisplayed(1)).to.be.true;
+    await AddRemoveElements.clickRemoveButton(1);
+    expect(await AddRemoveElements.isRemoveButtonDisplayed(1, true)).to.be.true;
+  })
+  it('Add/Remove multiple functional test', async () => {
+    await MainPage.waitForFormIsOpened();
+    await MainPage.clickSpecificLink(TestData.mainPage.indexLink['Add/Remove Elements']);
+    await AddRemoveElements.waitForFormIsOpened();
+    expect(await AddRemoveElements.getPageTitleText()).to.equal(TestData['Add/Remove Elements'].uniqe);
+    await createMultipleAddRemoveElements.createDeleteMultiple();
+  });
 })

@@ -10,6 +10,7 @@ const WyswingEditor = require('./wyswingEditor/index');
 const WyswingEditorIframe = require('./wyswingEditor/wyswingEditorIframe');
 const Dropdown = require('./dropdown');
 const JavascriptAlerts = require('./javascriptAlerts');
+const AddRemoveElements = require('./addRemoveElements');
 
 module.exports = {
   MainPage,
@@ -24,4 +25,5 @@ module.exports = {
   WyswingEditorIframe,
   Dropdown,
   JavascriptAlerts,
+  AddRemoveElements,
 };

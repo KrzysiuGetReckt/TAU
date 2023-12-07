@@ -95,5 +95,8 @@ module.exports = {
       sendText: 'Secret',
       result: 'You entered: ',
     }
+  },
+  'Add/Remove Elements': {
+    uniqe: 'Add/Remove Elements',
   }
 };
