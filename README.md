@@ -1,11 +1,9 @@
-# TAU - Certification process
 
-Test Automation University - Javascript Web UI Certification.
+# WebdriverStart
 
-This repository is a set of excersises presented in the course.
+QA Automation scripts in JavaScript using [the-internet.herokuapp](https://the-internet.herokuapp.com/) website.
 
-## Branches
-
-- [Introduction](https://github.com/KrzysiuGetReckt/TAU/tree/Introduction) - A subset of the fundamentals of Javascript.
-
-- [BrowserAutomation](https://github.com/KrzysiuGetReckt/TAU/tree/BrowserAutomation) - A set of Javascript classes used to interact with the TODO webaplication.
+![image]({https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E})
+![image]({https://img.shields.io/badge/Mocha-8D6748?style=for-the-badge&logo=Mocha&logoColor=white})
+![image]({https://img.shields.io/badge/chai-A30701?style=for-the-badge&logo=chai&logoColor=white})
+![image]({https://img.shields.io/badge/Selenium-43B02A?style=for-the-badge&logo=Selenium&logoColor=white})
