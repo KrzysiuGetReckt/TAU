@@ -17,6 +17,14 @@ module.exports = class BaseForm {
 
   getFormName = () => this.name;
 
+  get loginNav() {
+    return new Element('nav .account', 'Account navigation element');
+  }
+
+  get logoutBtn() {
+    return new Element('nav .logout', 'Logout button element');
+  }
+
   async isFormOpened() {
     const isOpened = await this.form.state().isExisting();
     Logger.info(`Form "${this.name}" is opened - "${isOpened}"`);
@@ -30,5 +38,15 @@ module.exports = class BaseForm {
       .waitForExist(timeouts.pageLoadTime);
     Logger.info(`Form "${this.name}" is opened - "${isOpened}"`);
     return isOpened;
+  }
+
+  async checkIfLoggedIn(reverse){
+    Logger.info(`Checking if the user is logged in`);
+    return await this.loginNav.state().assertIsExist(timeouts.explicit, timeouts.polling, reverse);
+  }
+
+  async clickLogout(){
+    Logger.info(`Logging out of the account`);
+    return await this.logoutBtn.click();
   }
 };

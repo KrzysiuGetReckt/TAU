@@ -14,6 +14,10 @@ class HomePage extends BaseForm {
     return new Element('.btn.btn-default.button-search', 'Search button of the main page');
   }
 
+  navigation = (index) => {
+    return new Element(`ul.sf-menu > li > a[title="${index}"]`, `Navigation element ${index} of the main page`);
+  }
+
   /**
    * Seach for a keyword in the search bar
    * 

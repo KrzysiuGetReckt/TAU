@@ -1,4 +1,4 @@
-const HomePage = require("../../../pageObjects/homePage");
+const { HomePage } = require("../../../pageObjects");
 
 const search = async (keyword) => {
     return await HomePage.search(keyword);

@@ -14,7 +14,8 @@ const loggerSetup = () => {
       new transports.File({
         filename: LOGSDIR,
         format: myFormat,
-        options: { flags: 'w' },
+        maxsize: 1000000,
+        options: { flags: 'a' },
       }),
       new transports.Console({ level: 'info' }),
     ],

@@ -1,5 +1,9 @@
 const timeouts = require('../src/environment/timeouts');
 const setupBrowser = require('../src/framework/browserActions');
+const { ENVIRONMENT, DELETECOOKIES, setDeleteCookies, showDeleteCookies } = require('./environment/envConfig');
+const Logger = require('./framework/logger');
+
+require('dotenv').config();
 
 exports.config = {
   //
@@ -7,7 +11,6 @@ exports.config = {
   // Runner Configuration
   // ====================
   // WebdriverIO supports running e2e tests as well as unit and component tests.
-  runner: 'local',
   //
   // ==================
   // Specify Test Files
@@ -26,7 +29,6 @@ exports.config = {
   //
   before: async () => {
     await setupBrowser();
-    await browser.reloadSession();
     await browser.setTimeout({
       implicit: timeouts.implicit,
       pageLoad: timeouts.pageLoadTime,
@@ -54,18 +56,12 @@ exports.config = {
   // and 30 processes will get spawned. The property handles how many capabilities
   // from the same test should run tests.
   //
-  maxInstances: 10,
+  maxInstances: 1,
   //
   // If you have trouble getting all important capabilities together, check out the
   // Sauce Labs platform configurator - a great tool to configure your capabilities:
   // https://saucelabs.com/platform/platform-configurator
   //
-  capabilities: [
-    {
-      browserName: 'chrome',
-    },
-  ],
-
   //
   // ===================
   // Test Configurations
@@ -162,12 +158,12 @@ exports.config = {
     // <boolean> fail if there are any undefined or pending steps
     strict: false,
     // <string> (expression) only execute the features or scenarios with tags matching the expression
-    tagExpression: '',
+    tags: `@regression or @${ENVIRONMENT}`,
     // <number> timeout for step definitions
     timeout: 60000,
     // <boolean> Enable this config to treat undefined definitions as warnings.
     ignoreUndefinedDefinitions: true
-},
+  },
 
   //
   // =====
@@ -239,12 +235,11 @@ exports.config = {
   /**
    * Function to be executed before a test (in Mocha/Jasmine) starts.
    */
-  beforeTest: function () {
+  beforeTest: async function () {
     const chai = require('chai');
-
     global.asert = chai.assert;
     global.expect = chai.expect;
-    chai.should();
+    await chai.should();
   },
   /**
    * Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling
@@ -271,6 +266,13 @@ exports.config = {
   // afterTest: function(test, context, { error, result, duration, passed, retries }) {
   // },
 
+  afterScenario: async function () {
+    if(await showDeleteCookies()){
+      await browser.deleteCookies();
+      await setDeleteCookies(false);
+    }
+  },
+
   /**
    * Hook that gets executed after the suite has ended
    * @param {object} suite suite details
@@ -293,9 +295,9 @@ exports.config = {
    * @param {Array.<Object>} capabilities list of capabilities details
    * @param {Array.<String>} specs List of spec file paths that ran
    */
-  after: function (result, capabilities, specs) {
+  after: async function (result, capabilities, specs) {
     // Workaround for Chrome processes that don’t exit.
-    browser.pause(1);
+    await browser.pause(1)
   },
   /**
    * Gets executed right after terminating the webdriver session.
@@ -303,7 +305,7 @@ exports.config = {
    * @param {Array.<Object>} capabilities list of capabilities details
    * @param {Array.<String>} specs List of spec file paths that ran
    */
-  // afterSession: function (config, capabilities, specs) {
+  // afterSession: async function (config, capabilities, specs) {
   // },
   /**
    * Gets executed after all workers got shut down and the process is about to exit. An error
